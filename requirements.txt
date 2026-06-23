@@ -1,0 +1,9 @@
+# IPGEO-Query 依赖
+# 核心功能仅使用 Python 标准库 (tkinter + urllib + sqlite3), 无需安装任何第三方包
+# 以下为可选依赖:
+
+# 更稳健的 HTTP 客户端 (不装也能用, 程序会自动降级到 urllib)
+requests>=2.28.0
+
+# 打包工具 (仅构建时需要)
+pyinstaller>=6.0.0
