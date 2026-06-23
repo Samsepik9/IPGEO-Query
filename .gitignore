@@ -36,3 +36,4 @@ desktop.ini
 
 # Editor history (VS Code Local History)
 .history/
+\n# Trae IDE\n.trae/
