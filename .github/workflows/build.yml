@@ -6,6 +6,9 @@ on:
       - "v*"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     strategy:
@@ -45,10 +48,14 @@ jobs:
 
       - name: Build (Windows)
         if: runner.os == 'Windows'
+        env:
+          PYTHONUTF8: "1"
         run: python build.py
 
       - name: Build (Linux/macOS)
         if: runner.os != 'Windows'
+        env:
+          PYTHONUTF8: "1"
         run: |
           chmod +x build.sh
           ./build.sh
