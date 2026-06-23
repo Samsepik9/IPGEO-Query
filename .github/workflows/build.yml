@@ -9,20 +9,18 @@ on:
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: ubuntu-latest
-            platform: linux
             artifact_name: IPGEO-Query
             asset_name: IPGEO-Query-linux-x64
           - os: windows-latest
-            platform: windows
             artifact_name: IPGEO-Query.exe
             asset_name: IPGEO-Query-windows-x64.exe
           - os: macos-latest
-            platform: macos
             artifact_name: IPGEO-Query.app
-            asset_name: IPGEO-Query-macos-x64.app
+            asset_name: IPGEO-Query-macos-x64.zip
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -55,18 +53,29 @@ jobs:
           chmod +x build.sh
           ./build.sh
 
+      # Prepare release asset: rename or zip the build output
+      - name: Prepare release asset (Linux)
+        if: runner.os == 'Linux'
+        run: cp dist/IPGEO-Query ${{ matrix.asset_name }}
+
+      - name: Prepare release asset (Windows)
+        if: runner.os == 'Windows'
+        run: copy dist\IPGEO-Query.exe ${{ matrix.asset_name }}
+
+      - name: Prepare release asset (macOS)
+        if: runner.os == 'macOS'
+        run: cd dist && zip -r ../${{ matrix.asset_name }} IPGEO-Query.app && cd ..
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.asset_name }}
-          path: dist/${{ matrix.artifact_name }}
+          path: ${{ matrix.asset_name }}
 
       - name: Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: |
-            dist/${{ matrix.artifact_name }}
-            dist/IPGEO-Query
+          files: ${{ matrix.asset_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
