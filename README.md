@@ -1,5 +1,7 @@
 # IPGEO-Query
 
+**简体中文** | **[English](README_EN.md)**
+
 > 专业的 **IP / 域名 / URL 地理位置 & 威胁情报** 查询 GUI 工具
 > 数据源: [ihmily/ip-info-api](https://github.com/ihmily/ip-info-api) 汇总的免费 API
 
@@ -37,7 +39,8 @@ IPGEO-Query/
 ├── build_windows.bat        # Windows 一键打包 (cmd)
 ├── requirements.txt         # Python 依赖 (可选)
 ├── LICENSE                  # MIT 许可证
-├── README.md                # 本文档
+├── README.md                # 中文文档
+├── README_EN.md             # English documentation
 ├── .github/workflows/
 │   └── build.yml            # GitHub Actions 多平台自动构建
 └── dist/                    # 构建产物 (gitignore)
@@ -56,7 +59,7 @@ IPGEO-Query/
 |---|---|---|
 | Windows | `IPGEO-Query-windows-x64.exe` | 双击运行 |
 | Linux | `IPGEO-Query-linux-x64` | `chmod +x` 后运行 |
-| macOS | `IPGEO-Query-macos-x64.app` | 双击或 `open` 运行 |
+| macOS | `IPGEO-Query-macos-x64.zip` | 解压后双击或 `open` 运行 |
 
 > macOS 首次运行可能需要: 系统偏好设置 → 安全性与隐私 → 允许运行
 
